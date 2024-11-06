@@ -24,8 +24,8 @@ Let's get stuck in!
 
 ### 0. Installation and migrations
 
-- [ ] Clone this repo and `cd` into the new directory
-- [ ] Install packages, run migrations and seeds, and start the dev server with `npm run dev`
+- [x] Clone this repo and `cd` into the new directory
+- [x] Install packages, run migrations and seeds, and start the dev server with `npm run dev`
   <details style="padding-left: 2em">
     <summary>Tip</summary>
 
@@ -41,7 +41,7 @@ Let's get stuck in!
   This will create and populate the database with the existing migrations and seeds, and start the server.
   </details>
 
-- [ ] Get familiar with the current state of the app and the existing codebase
+- [xxs] Get familiar with the current state of the app and the existing codebase
 
 ### What's included
 
@@ -53,9 +53,9 @@ The application is usable... _ish_. You can try anything and the app shouldn't b
 
 ### 1. Show all locations
 
-- [ ] Have a look at the `GET /api/v1/locations` route in `server/routes/locations.ts`
-- [ ] Complete the `getAllLocations` function in `db/index.ts` and have it return a Promise that resolves to an array of locations from the database
-- [ ] Complete the route using your new database function
+- [x] Have a look at the `GET /api/v1/locations` route in `server/routes/locations.ts`
+- [x] Complete the `getAllLocations` function in `db/index.ts` and have it return a Promise that resolves to an array of locations from the database
+- [x] Complete the route using your new database function
 
 ### 2. Show events for a day
 
