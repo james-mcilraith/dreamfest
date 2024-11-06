@@ -5,24 +5,30 @@ import server from '../server.ts'
 
 const router = express.Router()
 
-// GET /api/v1/locations
+// GET /api/v1/locations - show all locations
 router.get('/', async (req, res, next) => {
   try {
-    const id = req.query.id ? Number(req.query.id) : undefined
-    const locations = await db.getAllLocations(id)
+    const id = req.query?.id ? Number(req.query.id) : undefined
+    const locations = await db.getAllLocations()
 
-    if (!locations || locations.length === 0) {
-      return res
-        .status(404)
-        .json({ message: 'No locations found', locations: [] })
-    }
-
-    res.json({ locations })
+    res.status(locations?.length === 0 ? 404 : 200).json({ locations })
   } catch (error) {
-    console.error('Error fetching locations:', error)
+    console.log('Error fetching locations:', error)
     next(error)
   }
 })
+
+// GET /api/v1/schedule/:day - show events for a day
+// router.get('/:day', async (req, res, next) => {
+//   try {
+//     // TODO: Get the location based on its id and replace this viewData
+//     const location = {}
+//     res.json(location)
+//   } catch (error) {
+//     console.error('Error fetching locations by id:', error)
+//     next(error)
+//   }
+// })
 
 // router.get('/:id', async (req, res, next) => {
 //   try {

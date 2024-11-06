@@ -59,9 +59,9 @@ The application is usable... _ish_. You can try anything and the app shouldn't b
 
 ### 2. Show events for a day
 
-- [ ] Have a look at the `GET /api/v1/schedule/:day` route in `server/routes/schedule.js`
-- [ ] Build a `getEventsByDay` function with a `day` parameter. Today we'll put all our database functions in `db/index.ts`
-- [ ] Complete the route using your new database function
+- [x] Have a look at the `GET /api/v1/schedule/:day` route in `server/routes/schedule.js`
+- [x] Build a `getEventsByDay` function with a `day` parameter. Today we'll put all our database functions in `db/index.ts`
+- [x] Complete the route using your new database function
 
   <details style="padding-left: 2em">
     <summary>More about the <code>getEventsByDay</code> function</summary>
