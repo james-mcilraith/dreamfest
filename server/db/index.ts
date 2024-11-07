@@ -40,32 +40,36 @@ export async function getEventsByDay(day: string) {
   }
 }
 
-// export async function getLocationById(id: string) {
-//   let locations: unknown[] = [] // TODO: replace this with your knex query
-//   try {
-// console.log('Get locations by ID:', locations);
-// } catch (error) {
-//   console.log('Error fetching data:', error)
-//   throw new Error(
-//     `Failed to retrieve data: ${error instanceof Error ? error.message : error}`,
-//   )
-// }
+// getLocationById
+export async function getLocationById(id: string) {
+  try {
+    const result = await connection('locations')
+      .where('locations.id', id)
+      .select('id', 'name', 'description')
+      .first()
 
-//   return locations
-// }
+    return result || null
+  } catch (error) {
+    console.log('Error fetching location by ID:', error)
+    throw error
+  }
+}
+// updateLocation
+export async function updateLocation(id: string) {
+  try {
+    const result = await connection('locations')
+    .select(
+      'id',
+      'name',
+      'description',
+    )
 
-// export async function updateLocation(id: string) {
-//   let locations: unknown[] = [] // TODO: replace this with your knex query
-//   try {
-// console.log('Get all updatedLocation:', locations);
-// } catch (error) {
-//   console.log('Error fetching data:', error)
-//   throw new Error(
-//     `Failed to retrieve data: ${error instanceof Error ? error.message : error}`,
-//   )
-// }
-//  return locations
-// }
+    return result || null
+  } catch (error) {
+    console.log('Error updating location:', error)
+    throw error
+  }
+}
 
 // export async function addNewEvent(id: string) {
 //   let locations: unknown[] = [] // TODO: replace this with your knex query

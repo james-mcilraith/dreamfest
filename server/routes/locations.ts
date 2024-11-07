@@ -18,39 +18,42 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// GET /api/v1/schedule/:day - show events for a day
-// router.get('/:day', async (req, res, next) => {
-//   try {
-//     // TODO: Get the location based on its id and replace this viewData
-//     const location = {}
-//     res.json(location)
-//   } catch (error) {
-//     console.error('Error fetching locations by id:', error)
-//     next(error)
-//   }
-// })
+// GET /api/v1/locations/:id - item by id
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = Number(req.params.id)
+    const location = await db.getLocationById(id)
 
-// router.get('/:id', async (req, res, next) => {
-//   try {
-//     // TODO: Get the location based on its id and replace this viewData
-//     const location = {}
-//     res.json(location)
-//   } catch (error) {
-//     console.error('Error fetching locations by id:', error)
-//     next(error)
-//   }
-// })
+    if (!location) {
+      return res.status(404).json({ error: 'Location by ID not found' })
+    }
 
-// router.patch('/:id', async (req, res, next) => {
-//   try {
-//     const id = Number(req.params.id)
-//     const { name, description } = req.body
-//     // TODO: call db.updateLocation with these details
-//     res.sendStatus(204)
-//   } catch (error) {
-//     console.error('Error updating locations:', error)
-//     next(error)
-//   }
-// })
+    res.status(200).json({ location })
+  } catch (error) {
+    console.error('Error fetching location by ID:', error)
+    next(error)
+  }
+})
+
+// PATCH /api/v1/locations/:id - item by id
+router.patch('/:id', async (req, res, next) => {
+  try {
+    const id = Number(req.params.id)
+    const { name, description } = req.body
+
+    const location = await db.getLocationById(id)
+
+    if (!location) {
+      return res.status(404).json({ error: 'Location not found' })
+    }
+
+    const updatedLocation = await db.updateLocation(id, { name, description })
+
+    res.status(200).json({ location: updatedLocation })
+  } catch (error) {
+    console.error('Error updating location:', error)
+    next(error)
+  }
+})
 
 export default router

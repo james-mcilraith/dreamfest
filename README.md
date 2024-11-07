@@ -79,15 +79,15 @@ The application is usable... _ish_. You can try anything and the app shouldn't b
 
 ### 3. Show the form
 
-- [ ] Look at the `GET /api/v1/locations/:id` route in `server/routes/locations.ts`
+- [x] Look at the `GET /api/v1/locations/:id` route in `server/routes/locations.ts`
 <details style="padding-left: 2em">
   <summary>Tip</summary>
   
   This route supplies the current data to the form, ready for the user to edit it.
 </details>
 
-- [ ] Build a `getLocationById` function in `server/db/index.ts` with an `id` parameter
-- [ ] Be sure the form is being populated correctly
+- [x] Build a `getLocationById` function in `server/db/index.ts` with an `id` parameter
+- [x] Be sure the form is being populated correctly
   <details style="padding-left: 2em">
     <summary>Tips</summary>
 
@@ -97,14 +97,14 @@ The application is usable... _ish_. You can try anything and the app shouldn't b
 
 ### 4. Submit the form
 
-- [ ] Submitting the "Edit Location" form should send an HTTP PATCH request which will hit your `PATCH /api/v1/locations/:id` route, in `routes/locations.ts`
+- [x] Submitting the "Edit Location" form should send an HTTP PATCH request which will hit your `PATCH /api/v1/locations/:id` route, in `routes/locations.ts`
 <details style="padding-left: 2em">
   <summary>making a PATCH request</summary>
 This component uses the `useEditLocation` hook, from `client/hooks/api.ts`, this provides a react-query
 mutation that makes PATCH requests to a specific location.
 </details>
 
-- [ ] Build an `updateLocation` function in `server/db/index.ts` with an `updatedLocation` parameter (note the "d" in "updateD")
+- [x] Build an `updateLocation` function in `server/db/index.ts` with an `updatedLocation` parameter (note the "d" in "updateD")
 
   <details style="padding-left: 2em">
     <summary>More about the <code>updateLocation</code> function</summary>
