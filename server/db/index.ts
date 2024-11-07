@@ -54,6 +54,7 @@ export async function getLocationById(id: string) {
     throw error
   }
 }
+
 // updateLocation
 export async function updateLocation(id: string) {
   try {
@@ -98,17 +99,47 @@ export async function addNewEvent(newEvent: EventData) {
     throw error
   }
 }
+// deleteEvent
+export async function deleteEvent(id: string) {
+  try {
+    const result = await connection('events').where('id', id).delete()
 
-// export async function deleteEvent(id: string) {
-//   let locations: unknown[] = [] // TODO: replace this with your knex query
+    if (result > 0) {
+      console.log(`Event with ID ${id} deleted successfully.`)
+      return { message: `Event with ID ${id} deleted successfully.` }
+    } else {
+      console.log(`Event with ID ${id} not found.`)
+      return { message: `Event with ID ${id} not found.` }
+    }
+  } catch (error) {
+    console.error('Error deleting event:', error)
+    throw new Error('Failed to delete event. Please try again later.')
+  }
+}
 
-//   try {
-// console.log('Get all updatedLocation:', locations);
-// } catch (error) {
-//   console.log('Error fetching data:', error)
-//   throw new Error(
-//     `Failed to retrieve data: ${error instanceof Error ? error.message : error}`,
-//   )
-// }
-//   return locations
-// }
+// getLocationById (for editing)
+export async function getEventById(id: string) {
+  try {
+    const result = await connection('events')
+      .where('events.id', id)
+      .select(
+        'id',
+        'location_id as locationID',
+        'day',
+        'time',
+        'name',
+        'description',
+      )
+      .first()
+
+    return result || null
+  } catch (error) {
+    console.log('Error fetching location by ID:', error)
+    throw error
+  }
+}
+
+// Update event (following editing)
+export async function updateEvent()
+
+// Up to this point... in the STRETCH

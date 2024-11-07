@@ -118,7 +118,7 @@ mutation that makes PATCH requests to a specific location.
 
 ### 5. Add a new event
 
-- [ ] Submitting the "Add New Event" form should send an HTTP POST request which will hit the `POST /events` route, in `routes/events.ts`
+- [x] Submitting the "Add New Event" form should send an HTTP POST request which will hit the `POST /events` route, in `routes/events.ts`
   <details style="padding-left: 2em">
     <summary>Tips</summary>
 
@@ -126,11 +126,11 @@ mutation that makes PATCH requests to a specific location.
   - You may also want to ensure that `location_id` has a type of `Number` rather than `String`
   </details>
 
-- [ ] Build an `addNewEvent` function with an `event` parameter
+- [x] Build an `addNewEvent` function with an `event` parameter
 
 ### 6. Delete events
 
-- [ ] Deleting an event will send an HTTP POST request which will hit your `POST /events/delete` route in `routes/events.ts`
+- [x] Deleting an event will send an HTTP POST request which will hit your `POST /events/delete` route in `routes/events.ts`
   <details style="padding-left: 2em">
     <summary>More about deleting an event</summary>
     
@@ -140,7 +140,7 @@ mutation that makes PATCH requests to a specific location.
   - The "Delete event" button should be able to delete "Cutest Puppy Awards" (id 4) even though the displayed details are for "Slushie Apocalypse I" as you will find it uses the id provided by the url, not the hardcoded data.
   </details>
 
-- [ ] Build a `deleteEvent` function with an `id` parameter
+- [x] Build a `deleteEvent` function with an `id` parameter
 
 ---
 
