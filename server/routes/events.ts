@@ -7,16 +7,28 @@ import * as db from '../db/index.ts'
 const router = express.Router()
 export default router
 
+// Add new event
 router.post('/', async (req, res, next) => {
   try {
-    const { name, description, time, locationId } = req.body
-    const day = validateDay(req.body.day)
-    const id = 0 // TODO: call your new db.addNewEvent function and use the returned ID
-    const url = `/api/v1/events/${id}`
+    const { name, description, time, locationId, day } = req.body
+
+    const validatedDay = validateDay(day)
+    if (!validatedDay) {
+      return res.status(400).json({ error: 'Invalid day format' })
+    }
+    const event = await db.addNewEvent({
+      locationId,
+      day: validatedDay,
+      time,
+      name,
+      description,
+    })
+
+    const url = `/api/v1/events/${event.id}`
     res.setHeader('Location', url)
     res.status(201).json({ location: url })
-  } catch (e) {
-    next(e)
+  } catch (error) {
+    next(error)
   }
 })
 

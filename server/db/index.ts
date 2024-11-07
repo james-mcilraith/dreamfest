@@ -57,8 +57,7 @@ export async function getLocationById(id: string) {
 // updateLocation
 export async function updateLocation(id: string) {
   try {
-    const result = await connection('locations')
-    .select(
+    const result = await connection('locations').select(
       'id',
       'name',
       'description',
@@ -71,18 +70,34 @@ export async function updateLocation(id: string) {
   }
 }
 
-// export async function addNewEvent(id: string) {
-//   let locations: unknown[] = [] // TODO: replace this with your knex query
-//   try {
-// console.log('Get all updatedLocation:', locations);
-// } catch (error) {
-//   console.log('Error fetching data:', error)
-//   throw new Error(
-//     `Failed to retrieve data: ${error instanceof Error ? error.message : error}`,
-//   )
-// }
-//   return locations
-// }
+// addNewEvent
+export async function addNewEvent(newEvent: EventData) {
+  try {
+    const result = await connection('events')
+      .insert({
+        name: newEvent.name,
+        day: newEvent.day,
+        time: newEvent.time,
+        location_id: newEvent.locationId,
+        description: newEvent.description,
+      })
+      .returning('*')
+
+    if (result.length === 0) {
+      throw new Error('Unable to add new event, no data returned')
+    }
+
+    const createdEvent = result[0]
+
+    return {
+      id: createdEvent.id,
+      ...newEvent,
+    }
+  } catch (error) {
+    console.log('Error creating new event:', error)
+    throw error
+  }
+}
 
 // export async function deleteEvent(id: string) {
 //   let locations: unknown[] = [] // TODO: replace this with your knex query
