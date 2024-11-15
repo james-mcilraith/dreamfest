@@ -20,12 +20,12 @@ describe('Deleting an Event', () => {
   it('can be deleted', async () => {
     const eventId = 1
     const res = await request(server).get(`/api/v1/events/${eventId}`)
-    expect(res.status).toBe(200) // 200 OK
+    expect(res.status).toBe(200)
 
     const res2 = await request(server).delete(`/api/v1/events/${eventId}`)
-    expect(res2.status).toBe(204) // 204 No Content
+    expect(res2.status).toBe(204)
 
     const res3 = await request(server).get(`/api/v1/events/${eventId}`)
-    expect(res3.status).toBe(404) // 404 Not Found
+    expect(res3.status).toBe(404)
   })
 })
