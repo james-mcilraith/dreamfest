@@ -24,6 +24,7 @@ export default function NewEvent() {
         locationId={1}
         description=""
         onSubmit={handleSubmit}
+        aria-labelledby="new-event-heading"
       />
     </>
   )

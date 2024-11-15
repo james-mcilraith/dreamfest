@@ -41,7 +41,7 @@ Let's get stuck in!
   This will create and populate the database with the existing migrations and seeds, and start the server.
   </details>
 
-- [xxs] Get familiar with the current state of the app and the existing codebase
+- [x] Get familiar with the current state of the app and the existing codebase
 
 ### What's included
 

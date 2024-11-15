@@ -112,8 +112,8 @@ export async function deleteEvent(id: string) {
       return { message: `Event with ID ${id} not found.` }
     }
   } catch (error) {
-    console.error('Error deleting event:', error)
-    throw new Error('Failed to delete event. Please try again later.')
+    console.log('Error deleting event:', error)
+    throw error
   }
 }
 
@@ -140,6 +140,20 @@ export async function getEventById(id: string) {
 }
 
 // Update event (following editing)
-export async function updateEvent()
+export async function updateEventById(id: string, updateData: EventData) {
+  try {
+    const result = await connection('events').where('id', id).update({
+      locationId: updateData.locationId,
+      day: updateData.day,
+      time: updateData.time,
+      name: updateData.name,
+      description: updateData.description,
+    })
 
-// Up to this point... in the STRETCH
+    console.log(result)
+    return result > 0 ? result : null
+  } catch (error) {
+    console.error('Error updating event by ID:', error)
+    throw error
+  }
+}

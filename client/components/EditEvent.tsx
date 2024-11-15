@@ -15,13 +15,23 @@ export default function EditEvent() {
   const navigate = useNavigate()
 
   const handleSubmit = async (formData: EventData) => {
-    editEvent.mutateAsync({ id, ...formData })
+    try {
+      await editEvent.mutateAsync({ id, ...formData })
+      navigate('/schedule/friday')
+    } catch (error) {
+      console.error('Error updating event:', error)
+    }
   }
 
   const handleDelete = async (evt: React.FormEvent) => {
     evt.preventDefault()
-    deleteEvent.mutate()
-    navigate(`/schedule/friday`)
+    try {
+      await deleteEvent.mutateAsync()
+
+      navigate('/')
+    } catch (error) {
+      console.error('Error deleting event:', error)
+    }
   }
 
   if (event.isPending) {
@@ -42,10 +52,13 @@ export default function EditEvent() {
         {...event.data}
         submitLabel="Update event"
         onSubmit={handleSubmit}
+        aria-labelledby="edit-event-heading"
       />
       <form onSubmit={handleDelete} className="form">
         <div />
-        <button className="delete">Delete event</button>
+        <button className="delete" aria-label="Delete event">
+          Delete event
+        </button>
       </form>
     </>
   )

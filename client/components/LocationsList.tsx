@@ -23,13 +23,18 @@ export default function LocationsList() {
     <>
       <LocationsNav />
       <h2>locations:</h2>
-      <ul className="cards">
+      <ul className="cards" aria-label="List of locations">
         {data?.locations.map((data) => (
           <li key={data.id} className="card">
             <div className="location">
               <span className="title">{data.name}</span>
               <p className="data">{data.description}</p>
-              <Link to={`/locations/${data.id}/edit`}>edit location</Link>
+              <Link
+                to={`/locations/${data.id}/edit`}
+                aria-label={`Edit location: ${data.name}`}
+              >
+                edit location
+              </Link>
             </div>
           </li>
         ))}

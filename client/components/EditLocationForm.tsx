@@ -35,6 +35,7 @@ export default function EditLocationForm({ id, name, description }: Props) {
       onSubmit={handleSubmit}
       className="form"
       aria-busy={updateLocation.isPending}
+      aria-labelledby="form-location-edit"
     >
       <label htmlFor="name">Location name</label>
       <input
@@ -44,14 +45,17 @@ export default function EditLocationForm({ id, name, description }: Props) {
         placeholder="Location name"
         value={formState.name}
         onChange={handleChange}
+        aria-required="true"
       />
       <label htmlFor="description">Description</label>
       <textarea
         rows={4}
+        id="description"
         name="description"
         placeholder="Location description"
         onChange={handleChange}
         value={formState.description}
+        aria-required="true"
       />
       <div></div>
       <button disabled={updateLocation.isPending}>Update location</button>{' '}

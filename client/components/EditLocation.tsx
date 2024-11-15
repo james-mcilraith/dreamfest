@@ -30,8 +30,8 @@ export default function EditLocation() {
   return (
     <main aria-live="polite" aria-busy={false}>
       <LocationsNav />
-      <h2>
-        edit location: <span className="data">{data.name}</span>
+      <h2 id="form-location-edit">
+        Edit location: <span className="data">{data.name}</span>
       </h2>
       <EditLocationForm
         name={data.name}

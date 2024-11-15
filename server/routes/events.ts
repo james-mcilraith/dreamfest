@@ -69,17 +69,33 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+// Patch edit/update
 router.patch('/:id', async (req, res, next) => {
   try {
-    const { name, description, time } = req.body
-    const id = Number(req.body.id)
-    const day = validateDay(req.body.day)
-    const locationId = Number(req.body.locationId)
+    const { name, description, time, day, locationId } = req.body
+    const id = req.params.id
 
-    // TODO: UPDATE the event in the db with the matching ID using these details,
-    // if no event has a matching id, respond with a 404 instead
+    const validatedDay = validateDay(day)
+    if (!validatedDay) {
+      return res.status(400).json({ error: 'Invalid day format' })
+    }
+
+    const updateData = {
+      name,
+      description,
+      time,
+      day: validatedDay,
+      locationId: locationId,
+    }
+
+    const result = await db.updateEventById(id, updateData)
+
+    if (result === null) {
+      return res.status(404).json({ error: 'Event not found' })
+    }
+
     res.sendStatus(204)
-  } catch (e) {
-    next(e)
+  } catch (error) {
+    next(error)
   }
 })

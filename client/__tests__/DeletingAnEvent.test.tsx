@@ -1,11 +1,10 @@
 // @vitest-environment jsdom
 import { describe, it, expect, beforeAll } from 'vitest'
 import nock from 'nock'
-
 import { setupApp } from './setup.tsx'
 
 beforeAll(() => {
-  nock.disableNetConnect()
+  nock.disableNetConnect() // Prevents real network requests during the tests
 })
 
 const fakeEvent = {
@@ -28,38 +27,54 @@ const fakeLocations = {
   ],
 }
 
-describe('Deleting an event', () => {
-  it('shows current data on the form', async () => {
-    const eventScope = nock('http://localhost')
-      .get('/api/v1/events/1')
-      .reply(200, fakeEvent)
+describe('Event Edit Page', () => {
+  describe('When the event is loaded', () => {
+    it('shows current data on the form', async () => {
+      const eventScope = nock('http://localhost')
+        .get('/api/v1/events/1')
+        .reply(200, fakeEvent)
 
-    const locationScope = nock('http://localhost')
-      .get('/api/v1/locations')
-      .reply(200, fakeLocations)
+      const locationScope = nock('http://localhost')
+        .get('/api/v1/locations')
+        .reply(200, fakeLocations)
 
-    // ARRANGE
-    const { ...screen } = setupApp('/events/1/edit')
-    // ACT
-    // ASSERT
-    const nameInput = await screen.findByLabelText('Event name')
-    const descriptionInput = await screen.findByLabelText('Description')
+      const { ...screen } = setupApp(`/events/1/edit`)
 
-    expect(nameInput).toBeVisible()
-    expect(nameInput).toHaveValue('Slushie Apocalypse I')
-    expect(descriptionInput).toBeInTheDocument()
-    expect(descriptionInput).toHaveValue(
-      'This event will be taking place at the TangleStage. Be sure to not miss the free slushies cause they are rad!',
-    )
+      const nameInput = await screen.findByLabelText('Event name')
+      const descriptionInput = await screen.findByLabelText('Description')
 
-    expect(eventScope.isDone()).toBe(true)
-    expect(locationScope.isDone()).toBe(true)
+      expect(nameInput).toBeVisible()
+      expect(nameInput).toHaveValue('Slushie Apocalypse I')
+      expect(descriptionInput).toBeInTheDocument()
+      expect(descriptionInput).toHaveValue(
+        'This event will be taking place at the TangleStage. Be sure to not miss the free slushies cause they are rad!',
+      )
+
+      expect(eventScope.isDone()).toBe(true)
+      expect(locationScope.isDone()).toBe(true)
+    })
   })
 
-  it.todo('deletes the event when the delete button is clicked', async () => {
-    // TODO: write client integration test for event delete
-    // ARRANGE
-    // ACT
-    // ASSERT
+  describe('When the delete button is clicked', () => {
+    it('sends a delete request to remove the event', async () => {
+      const getScope = nock('http://localhost')
+        .get('/api/v1/events/1')
+        .reply(200, fakeEvent)
+      console.log('getScopelog:', getScope)
+
+      const deleteScope = nock('http://localhost')
+        .delete('/api/v1/events/1')
+        .reply(204)
+      console.log('deleteScope log:', deleteScope)
+
+      const { user, ...screen } = setupApp(`/events/1/edit`)
+
+      const deleteButton = await screen.findByLabelText('Delete event')
+      expect(deleteButton).toBeVisible()
+
+      await user.click(deleteButton)
+
+      expect(deleteScope.isDone()).toBe(true)
+    })
   })
 })

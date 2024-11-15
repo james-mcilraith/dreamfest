@@ -55,7 +55,9 @@ export default function EditEventForm({
     <form onSubmit={handleSubmit} className="form">
       <input type="hidden" name="id" value="{{event.id}}" />
 
-      <label className="label">Event name</label>
+      <label htmlFor="name" className="label">
+        Event name
+      </label>
       <input
         type="text"
         id="name"
@@ -63,6 +65,7 @@ export default function EditEventForm({
         placeholder="Event name"
         onChange={handleChange}
         value={formState.name}
+        aria-required="true"
       />
 
       <label htmlFor="description" className="label">
@@ -75,6 +78,7 @@ export default function EditEventForm({
         placeholder="Event description"
         onChange={handleChange}
         value={formState.description}
+        aria-required="true"
       />
 
       <label htmlFor="location" className="label">
@@ -85,6 +89,7 @@ export default function EditEventForm({
         name="locationId"
         value={formState.locationId}
         onChange={handleChange}
+        aria-required="true"
       >
         {locations.data.locations.map(({ id, name }) => (
           <option key={id} value={id}>
@@ -96,7 +101,13 @@ export default function EditEventForm({
       <label htmlFor="day" className="label">
         Day
       </label>
-      <select id="day" name="day" value={formState.day} onChange={handleChange}>
+      <select
+        id="day"
+        name="day"
+        value={formState.day}
+        onChange={handleChange}
+        aria-required="true"
+      >
         {['friday', 'saturday', 'sunday'].map((value) => (
           <option key={value} value={value}>
             {value}
@@ -112,6 +123,7 @@ export default function EditEventForm({
         onChange={handleChange}
         placeholder="Example: 1pm - 2pm"
         value={formState.time}
+        aria-required="true"
       />
 
       <div></div>

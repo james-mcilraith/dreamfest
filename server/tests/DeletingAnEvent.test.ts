@@ -17,7 +17,15 @@ afterAll(async () => {
 })
 
 describe('Deleting an Event', () => {
-  it.todo('can be deleted', async () => {
-    // TODO: write server integration test for event delete
+  it('can be deleted', async () => {
+    const eventId = 1
+    const res = await request(server).get(`/api/v1/events/${eventId}`)
+    expect(res.status).toBe(200) // 200 OK
+
+    const res2 = await request(server).delete(`/api/v1/events/${eventId}`)
+    expect(res2.status).toBe(204) // 204 No Content
+
+    const res3 = await request(server).get(`/api/v1/events/${eventId}`)
+    expect(res3.status).toBe(404) // 404 Not Found
   })
 })
